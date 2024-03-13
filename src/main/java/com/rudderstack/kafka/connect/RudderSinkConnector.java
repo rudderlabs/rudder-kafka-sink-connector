@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * The RudderSinkConnector class is a Kafka Connect SinkConnector implementation
+ * that sends data to Rudderstack.
+ */
 public class RudderSinkConnector extends SinkConnector {
     private static final Logger log = LoggerFactory.getLogger(RudderSinkConnector.class);
 
