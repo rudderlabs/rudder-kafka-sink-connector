@@ -13,11 +13,18 @@ jobs:
       tag_name: ${{ steps.release.outputs.tag_name }}
       release_created: ${{ steps.release.outputs.release_created }}
     steps:
-      - uses: google-github-actions/release-please-action@v4
+      - name: Extract Branch Name
+        run: echo "{branch}={${GITHUB_REF#refs/heads/})}" >> $GITHUB_ENV
+      - uses: google-github-actions/release-please-action@v3
         id: release
         with:
           token: ${{ github.token }}
           release-type: simple
+          pull-request-title-pattern: 'chore: release ${version}'
+          default-branch: '$branch'
+          changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Miscellaneous","hidden":false},{"type":"refactor","section":"Miscellaneous","hidden":false},{"type":"test","section":"Miscellaneous","hidden":false},{"type":"doc","section":"Documentation","hidden":false}]'
+          bump-minor-pre-major: true
+          bump-patch-for-minor-pre-major: true
 
   upload-artifact:
     runs-on: ubuntu-latest
@@ -45,4 +52,4 @@ jobs:
       - name: Upload Release Artifact
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload ${{ needs.release.outputs.tag_name }}  $jarfile --clobber
+        run: gh release upload ${{ needs.release.outputs.tag_name }}  "$jarfile" --clobber
