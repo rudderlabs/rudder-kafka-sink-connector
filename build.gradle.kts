@@ -2,22 +2,18 @@ plugins {
     id("java")
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("jacoco")
-    id("pl.allegro.tech.build.axion-release") version "1.17.0"
     id("org.sonarqube") version "4.4.1.3373"
 }
-scmVersion {
-    repository {
-        pushTagsOnly.set(false)
-    }
-}
-
-project.version = scmVersion.version
 
 group = "com.rudderstack"
 
 repositories {
     mavenCentral()
 }
+
+val versionFile = file("version.txt")
+val version = versionFile.readText().trim()
+project.version = version
 
 val kafkaVersion = "3.7.0"
 val slf4jApiVersion = "2.0.12"
@@ -47,6 +43,14 @@ dependencies {
 jacoco {
     toolVersion = "0.8.11"
     reportsDirectory = layout.buildDirectory.dir("coverage")
+}
+sonarqube {
+  properties {
+    property("sonar.projectKey", "rudderlabs_rudder-kafka-sink-connector")
+    property("sonar.organization", "rudderlabs")
+    property("sonar.host.url", "https://sonarcloud.io")
+    property("sonar.gradle.skipCompile", "true")
+  }
 }
 
 sonar {
@@ -79,3 +83,6 @@ tasks {
         archiveClassifier.set("")
     }
 }
+
+
+
