@@ -2,11 +2,10 @@ plugins {
     id("java")
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("jacoco")
+    id("pl.allegro.tech.build.axion-release") version "1.15.1"
 }
 
-tasks.processResources {
-    expand(mapOf("version" to version))
-}
+project.version = scmVersion.version
 
 group = "com.rudderstack"
 
