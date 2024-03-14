@@ -13,8 +13,6 @@ jobs:
       tag_name: ${{ steps.release.outputs.tag_name }}
       release_created: ${{ steps.release.outputs.release_created }}
     steps:
-      - name: Extract Branch Name
-        run: echo "{branch}={${GITHUB_REF#refs/heads/})}" >> $GITHUB_ENV
       - uses: google-github-actions/release-please-action@v4
         id: release
         with:
@@ -41,10 +39,8 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Get JAR file name
-        run: echo "{jarfile}={$(ls build/libs/*.jar | head -n 1)}" >> $GITHUB_ENV
-
       - name: Upload Release Artifact
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload ${{ needs.release.outputs.tag_name }}  "$jarfile" --clobber
+        run: |    
+          gh release upload ${{ needs.release.outputs.tag_name }}  build/libs/rudder-kafka-sink-connector-${{ needs.release.outputs.tag_name }}.jar --clobber
