@@ -26,14 +26,14 @@ jobs:
     
     - name: Get the new version
       id: get_version
-      run: echo "::set-output name=version::$(./gradlew currentVersion)"
+      run: echo "{version}={$(./gradlew currentVersion)}" >> $GITHUB_ENV
     
     - name: Get JAR file name
       id: getjar
-      run: echo "::set-output name=jarfile::$(ls build/libs/*.jar | head -n 1)"
+      run: echo "{jarfile}={$(ls build/libs/*.jar | head -n 1)}" >> $GITHUB_ENV
 
     - name: Create GitHub release
       run: |
-        gh release create v${{ steps.get_version.outputs.version }} ${{ steps.getjar.outputs.jarfile }} -t "Release v${{ steps.get_version.outputs.version }}" -n "Release v${{ steps.get_version.outputs.version }}"
+        gh release create v$versiob $jarfile -t "Release v$version" -n "Release v$version"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
