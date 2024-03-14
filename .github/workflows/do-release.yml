@@ -1,0 +1,39 @@
+name: Release and Upload Artifacts
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+
+    - name: Build with Gradle
+      run: ./gradlew build
+
+    - name: Release with axion-release-plugin
+      run: ./gradlew release -Prelease.disableChecks -Prelease.pushTagsOnly
+    
+    - name: Get the new version
+      id: get_version
+      run: echo "::set-output name=version::$(./gradlew currentVersion)"
+    
+    - name: Get JAR file name
+      id: getjar
+      run: echo "::set-output name=jarfile::$(ls build/libs/*.jar | head -n 1)"
+
+    - name: Create GitHub release
+      run: |
+        gh release create v${{ steps.get_version.outputs.version }} ${{ steps.getjar.outputs.jarfile }} -t "Release v${{ steps.get_version.outputs.version }}" -n "Release v${{ steps.get_version.outputs.version }}"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

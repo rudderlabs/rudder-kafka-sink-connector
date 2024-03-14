@@ -2,11 +2,10 @@ plugins {
     id("java")
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("jacoco")
+    id("pl.allegro.tech.build.axion-release") version "1.15.1"
 }
 
-tasks.processResources {
-    expand(mapOf("version" to version))
-}
+project.version = scmVersion.version
 
 group = "com.rudderstack"
 
@@ -50,6 +49,11 @@ tasks.test {
 
 tasks.jacocoTestReport {
     dependsOn(tasks.test) // tests are required to run before generating the report
+    reports {
+        xml.required.set(true)
+        csv.required.set(false)
+        html.required.set(true)
+    }
 }
 
 tasks {
