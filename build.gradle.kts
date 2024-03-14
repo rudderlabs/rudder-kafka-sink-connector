@@ -3,6 +3,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("jacoco")
     id("pl.allegro.tech.build.axion-release") version "1.15.1"
+    id("org.sonarqube") version "4.4.1.3373"
 }
 
 project.version = scmVersion.version
@@ -40,6 +41,14 @@ dependencies {
 jacoco {
     toolVersion = "0.8.11"
     reportsDirectory = layout.buildDirectory.dir("coverage")
+}
+
+sonar {
+  properties {
+    property("sonar.projectKey", "rudderlabs_rudder-kafka-sink-connector")
+    property("sonar.organization", "rudderlabs")
+    property("sonar.host.url", "https://sonarcloud.io")
+  }
 }
 
 tasks.test {
