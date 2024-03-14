@@ -36,8 +36,8 @@ jobs:
           java-version: "21"
           distribution: "adopt"
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Create Connector Jar
+        run: ./gradlew shadowJar
 
       - name: Upload Release Artifact
         env:
