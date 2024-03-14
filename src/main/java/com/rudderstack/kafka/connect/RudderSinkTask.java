@@ -47,5 +47,4 @@ public class RudderSinkTask extends SinkTask {
     public void stop() {
         // Nothing to do.
     }
-
 }

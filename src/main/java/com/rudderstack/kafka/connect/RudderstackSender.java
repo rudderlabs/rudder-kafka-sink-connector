@@ -45,6 +45,9 @@ public class RudderstackSender {
      */
     private Map<String, Object> convertRecordToMap(SinkRecord sinkRecord) {
         try {
+            if (sinkRecord.value() instanceof  String) {
+                return Map.of("message", sinkRecord.value());
+            }
             byte[] jsonBytes = jsonConverter.fromConnectData(sinkRecord.topic(),
                     sinkRecord.valueSchema(),
                     sinkRecord.value());
