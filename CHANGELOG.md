@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/rudderlabs/rudder-kafka-sink-connector/compare/v0.3.1...v0.3.2) (2024-03-14)
+
+
+### Bug Fixes
+
+* release-please workflow ([d523260](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/d5232601e45d090d28be181a2adada904ec019d6))
+
 ## [0.3.1](https://github.com/rudderlabs/rudder-kafka-sink-connector/compare/v0.3.0...v0.3.1) (2024-03-14)
 
 
