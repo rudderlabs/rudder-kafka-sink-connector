@@ -42,7 +42,7 @@ Before you start, ensure you have the following:
 * Build the project: gradle shadowJar
 The resulting JAR file in the build/libs directory is the Kafka sink connector that you can use.
 ### Configuration
-Create a .properties file with the following details:
+Create a rudderstack-kafka-connector-config.properties file with the following details:
 ```
 name=rudderstack-sink
 connector.class=com.rudderstack.kafka.connect.RudderSinkConnector
@@ -64,9 +64,9 @@ Replace <YOUR_DATA_PLANE_URL> with your Rudderstack dataplane URL and <YOUR_WRIT
 ### Usage
 To start the connector, use the following command:
 
-`./bin/connect-standalone.sh config/connect-standalone.properties your-connector-config.properties`
+`./bin/connect-standalone.sh config/connect-standalone.properties rudderstack-kafka-connector-config.properties`
 
-Replace your-connector-config.properties with the path to your .properties file.
+Replace rudderstack-kafka-connector-config.properties with the path to your .properties file.
 
 ## Contribute
 
