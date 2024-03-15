@@ -9,26 +9,38 @@ import org.junit.jupiter.api.Test;
 final class RangeValidatorTest {
 
     @Test
-    void testValidNumberWithinRangeAccepted() {
+    void shouldAcceptNumberWithinRange() {
         RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
         assertDoesNotThrow(() -> validator.ensureValid("test", 5));
     }
 
     @Test
-    void testInvalidNumberWithinRangeNotAccepted() {
+    void shouldRejectNumberNotInRange() {
         RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
         assertThrows(ConfigException.class, () -> validator.ensureValid("test", 15));
     }
 
     @Test
-    void testNullValueAccepted() {
+    void shouldAcceptNullValue() {
         RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
         assertDoesNotThrow(() -> validator.ensureValid("test", null));
     }
 
     @Test
-    void testMaxValueAccepted() {
+    void shouldAcceptMaxValue() {
         RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
         assertDoesNotThrow(() -> validator.ensureValid("test", 10));
+    }
+
+    @Test
+    void shouldAcceptMinValue() {
+        RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
+        assertDoesNotThrow(() -> validator.ensureValid("test", 1));
+    }
+
+    @Test
+    void shouldNotAcceptInvalidValues() {
+        RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
+        assertThrows(ConfigException.class, () -> validator.ensureValid("test", "hello"));
     }
 }

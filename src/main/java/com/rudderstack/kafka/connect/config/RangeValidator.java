@@ -31,10 +31,4 @@ public class RangeValidator<T extends Number> implements ConfigDef.Validator {
                     "Value must be no more than " + this.max);
         }
     }
-
-    @Override
-    public String toString() {
-        return String.join(",", List.of("null", "[" + this.min + " , " + this.max + "]"));
-    }
-
 }

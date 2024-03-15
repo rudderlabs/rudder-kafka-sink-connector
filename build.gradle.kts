@@ -11,7 +11,7 @@ repositories {
     mavenCentral()
 }
 
-val versionFile = file("version.txt")
+val versionFile = file("src/main/resources/version.txt")
 val version = versionFile.readText().trim()
 project.version = version
 
@@ -21,7 +21,6 @@ val junitVersion = "5.10.2"
 val jacksonVersion = "2.16.2"
 val rudderAnalytics = "3.0.0"
 val mockitoCore = "5.11.0"
-var curatorTest = "5.6.0"
 
 dependencies {
     implementation("org.apache.kafka:connect-api:$kafkaVersion")
@@ -36,8 +35,6 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:$junitVersion"))
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
     testImplementation("org.mockito:mockito-core:$mockitoCore")
-    testImplementation("org.apache.curator:curator-test:$curatorTest")
-
 }
 
 jacoco {

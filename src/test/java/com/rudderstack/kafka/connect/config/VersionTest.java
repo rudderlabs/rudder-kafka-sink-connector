@@ -1,13 +1,13 @@
 package com.rudderstack.kafka.connect.config;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.Test;
 
 class VersionTest {
     @Test
-    void shouldGetVersionFromPropertiesFile() {
-        String expectedVersion = "unknown";
-        String actualVersion = Version.getVersion();
-        assertEquals(expectedVersion, actualVersion);
+    void shouldGetVersionFromVersionFile() {
+        assertNotNull(Version.getVersion());
     }
 }

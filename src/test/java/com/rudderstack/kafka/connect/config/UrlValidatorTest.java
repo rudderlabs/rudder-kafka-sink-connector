@@ -25,7 +25,7 @@ class UrlValidatorTest {
     @Test
     void shouldRejectInvalidUrl() {
         UrlValidator validator = new UrlValidator();
-        String url = "invalid-url";
-        assertThrows(ConfigException.class, () -> validator.ensureValid("url", url));
+        assertThrows(ConfigException.class, () -> validator.ensureValid("url", "invalid-url"));
+        assertThrows(ConfigException.class, () -> validator.ensureValid("url", 1));
     }
 }

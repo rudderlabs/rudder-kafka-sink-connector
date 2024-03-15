@@ -22,10 +22,4 @@ class UrlValidator implements ConfigDef.Validator {
             throw new ConfigException(name, value, "malformed URL");
         }
     }
-
-    @Override
-    public String toString() {
-        return "HTTPS URL";
-    }
-
 }
