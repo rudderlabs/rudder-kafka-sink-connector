@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/rudderlabs/rudder-kafka-sink-connector/compare/v0.3.3...v0.4.0) (2024-03-15)
+
+
+### Features
+
+* add tests ([a26e047](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/a26e0477cc7490191c8ff0472cdd8de46657e40e))
+
 ## [0.3.3](https://github.com/rudderlabs/rudder-kafka-sink-connector/compare/v0.3.2...v0.3.3) (2024-03-14)
 
 
