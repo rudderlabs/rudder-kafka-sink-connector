@@ -39,12 +39,17 @@ Before you start, ensure you have the following:
 1. Real-Time Insights: By enabling real-time data streaming from Kafka to Rudderstack, the connector ensures that your business always has the most up-to-date information, enabling you to make data-driven decisions quickly.
 
 ## Getting started
-### Installation
+### Installation from Source Code
 
 * Clone the repository: git clone https://github.com/rudderlabs/rudder-kafka-sink-connector.git
 * Navigate to the project directory: cd rudder-kafka-sink-connector
 * Build the project: gradle shadowJar
 The resulting JAR file in the build/libs directory is the Kafka sink connector that you can use.
+### Installation from Released Jar Files
+* Go to https://github.com/rudderlabs/rudder-kafka-sink-connector/releases
+* Select the latest or desired version.
+* Download `rudderstack-kafka-connector-x.x.x.jar` from Assets.
+  ![image](https://github.com/rudderlabs/rudder-kafka-sink-connector/assets/33080863/b4eb8024-bd15-4472-89e3-137351fc594a)
 ### Configuration
 Create a rudderstack-kafka-connector-config.properties file with the following details:
 ```
