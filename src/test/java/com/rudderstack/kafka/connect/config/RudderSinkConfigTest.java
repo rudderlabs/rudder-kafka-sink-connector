@@ -19,7 +19,7 @@ final class RudderSinkConfigTest {
         properties.put("name", "connector_name");
         properties.put("kafka.retry.backoff.ms", "1000");
 
-        RudderSinkConfig config = new RudderSinkConfig(properties);
+        RudderSinkConfig config = new RudderSinkConfig(RudderSinkConfig.configDef(), properties);
 
         assertEquals("https://example.com", config.dataPlaneUrl());
         assertEquals("write_key", config.writeKey());
