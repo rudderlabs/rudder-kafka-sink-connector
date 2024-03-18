@@ -4,21 +4,19 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 final class ResourceUtilTest {
 
     @Test
-    void shouldResultFileContentsWhenFileExists() {
-        ResourceUtil.getResourceFileAsString("version.txt");
-    }
-    @Test
     void shouldReturnNullWhenFileNotExisting() {
-        assertNull(ResourceUtil.getResourceFileAsString("unknown.txt"));
+        var properties = ResourceUtil.getProperties("unknown.txt");
+        assertTrue(properties.isEmpty());
     }
 
     @Test
      void shouldReturnNullWhenFileNameIsNull() throws IOException {
-        assertNull(ResourceUtil.getResourceFileAsString(null));
+        var properties = ResourceUtil.getProperties(null);
+        assertTrue(properties.isEmpty());
     }
 }

@@ -1,15 +1,15 @@
 package com.rudderstack.kafka.connect.config;
 
-import java.io.IOException;
+import java.util.Properties;
+
 import com.rudderstack.kafka.connect.utils.ResourceUtil;
 
 public final class Version {
-    private static final String VERSION_FILE = "version.txt";
 
-    private static final String CONNECTOR_VERSION = ResourceUtil.getResourceFileAsString(VERSION_FILE);
+    private static final Properties PROJECT_PROPERTIES = ResourceUtil.getProperties(ResourceUtil.PROJECT_PROPERTIES_FILE_NAME);
 
     public static String getVersion() {
-        return CONNECTOR_VERSION;
+        return PROJECT_PROPERTIES.getProperty("version");
     }
 
     private Version() {
