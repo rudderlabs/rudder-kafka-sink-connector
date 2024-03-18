@@ -17,9 +17,7 @@ jobs:
         id: release
         with:
           token: ${{ github.token }}
-          release-type: simple
-          path: "src/main/resources/version.txt"
-
+  
   upload-artifact:
     runs-on: ubuntu-latest
     needs: release

@@ -11,7 +11,7 @@ repositories {
     mavenCentral()
 }
 
-val versionFile = file("src/main/resources/version.txt")
+val versionFile = file("version.txt")
 val version = versionFile.readText().trim()
 project.version = version
 
