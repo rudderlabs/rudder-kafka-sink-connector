@@ -11,7 +11,7 @@ repositories {
     mavenCentral()
 }
 // x-release-please-start-version
-val version="0.1.0"
+val version="0.2.0"
 // x-release-please-end
 
 project.version = version
