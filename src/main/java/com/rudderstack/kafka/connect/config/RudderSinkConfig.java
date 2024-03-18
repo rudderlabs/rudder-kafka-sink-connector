@@ -18,6 +18,10 @@ public final class RudderSinkConfig extends AbstractConfig {
         super(definition, originals);
     }
 
+    public RudderSinkConfig(final Map<String, String> properties) {
+        super(configDef(), properties);
+    }
+
     private static void addRudderConfigGroup(final ConfigDef configDef) {
         int groupCounter = 0;
         configDef.define(
@@ -76,10 +80,6 @@ public final class RudderSinkConfig extends AbstractConfig {
         final ConfigDef configDef = new ConfigDef();
         addRudderConfigGroup(configDef);
         return configDef;
-    }
-
-    public RudderSinkConfig(final Map<String, String> properties) {
-        super(configDef(), properties);
     }
 
     public String dataPlaneUrl() {

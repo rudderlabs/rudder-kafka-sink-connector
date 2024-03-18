@@ -10,9 +10,10 @@ group = "com.rudderstack"
 repositories {
     mavenCentral()
 }
+// x-release-please-start-version
+val version="0.1.0"
+// x-release-please-end
 
-val versionFile = file("src/main/resources/version.txt")
-val version = versionFile.readText().trim()
 project.version = version
 
 val kafkaVersion = "3.7.0"
