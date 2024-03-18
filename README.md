@@ -51,6 +51,7 @@ Before you start, ensure you have the following:
   ![image](https://github.com/rudderlabs/rudder-kafka-sink-connector/assets/33080863/b4eb8024-bd15-4472-89e3-137351fc594a)
 
 The resulting JAR file in the build/libs directory is the Kafka sink connector that you can use.
+
 ### Configuration
 Create a rudderstack-kafka-connector-config.properties file with the following details:
 ```
