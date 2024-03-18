@@ -44,13 +44,15 @@ Before you start, ensure you have the following:
 * Clone the repository: git clone https://github.com/rudderlabs/rudder-kafka-sink-connector.git
 * Navigate to the project directory: cd rudder-kafka-sink-connector
 * Build the project: gradle shadowJar
+* The resulting JAR file in the build/libs directory is the Kafka sink connector you can use.
+
 #### From Released Assets
 * Go to https://github.com/rudderlabs/rudder-kafka-sink-connector/releases
 * Select the latest or desired version.
 * Download `rudderstack-kafka-connector-x.x.x.jar` from Assets.
   ![image](https://github.com/rudderlabs/rudder-kafka-sink-connector/assets/33080863/b4eb8024-bd15-4472-89e3-137351fc594a)
 
-The resulting JAR file in the build/libs directory is the Kafka sink connector that you can use.
+Copy the **rudderstack-kafka-connector-x.x.x.jar** to your Kafka libs directory.
 
 ### Configuration
 Create a rudderstack-kafka-connector-config.properties file with the following details:
@@ -76,8 +78,6 @@ Replace <YOUR_DATA_PLANE_URL> with your Rudderstack dataplane URL and <YOUR_WRIT
 To start the connector, use the following command:
 
 `./bin/connect-standalone.sh config/connect-standalone.properties rudderstack-kafka-connector-config.properties`
-
-Replace rudderstack-kafka-connector-config.properties with the path to your .properties file.
 
 ## Contribute
 
