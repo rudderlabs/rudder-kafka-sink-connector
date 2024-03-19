@@ -80,6 +80,14 @@ To start the connector, use the following command:
 `./bin/connect-standalone.sh config/connect-standalone.properties rudderstack-kafka-connector-config.properties`
 
 ## Contribute
+### How does it work
+The [RudderstackSender](src/main/java/com/rudderstack/kafka/connect/RudderstackSender.java) Java class facilitates the sending of Kafka SinkRecords to [Rudderstack](https://rudderstack.com/) for processing. It initializes RudderstackAnalytics with provided configuration settings and handles JSON conversion using JsonConverter and ObjectMapper. Conversion methods translate SinkRecords into Map representations and compute user IDs and timestamps. The send method iterates through a collection of SinkRecords, constructing TrackMessages for each with details such as topic, timestamp, user ID, and context. These messages are then enqueued in RudderstackAnalytics for further processing, thus providing a streamlined mechanism for sending Kafka data to Rudderstack.
+### How to extend it
+To extend the functionality of this sink connector, you can begin by forking the GitHub [repository](https://github.com/rudderlabs/rudder-kafka-sink-connector). Once forked, navigate to the RudderstackSender.java file located at src/main/java/com/rudderstack/kafka/connect/ within your forked repository. Update this file according to your specific requirements, such as adding new features, modifying existing functionality, or integrating with other systems.
+
+After making the necessary changes, you'll need to build the connector. Ensure that you have the required build tools and dependencies set up according to the project's documentation. Once everything is configured, execute the build process to generate the updated connector artifact.
+
+With the updated connector built, you can now deploy it within your Kafka setup. Depending on your Kafka deployment method, this may involve installing the connector on your Kafka Connect cluster or distributing the connector JAR to individual Kafka Connect worker nodes. Refer to Kafka's documentation for instructions on deploying and managing connectors.
 
 We would love to see you contribute to RudderStack. Get more information on how to contribute [**here**](CONTRIBUTING.md).
 
