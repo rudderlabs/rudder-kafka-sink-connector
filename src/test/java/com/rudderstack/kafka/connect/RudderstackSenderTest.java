@@ -58,9 +58,9 @@ final class RudderstackSenderTest {
                 .put("name", "Josh")
                 .put("email", "josh@example.com");
 
-        SinkRecord record = new SinkRecord("test-topic", 0, null, "key1", schema, msg, 0);
+        SinkRecord sinkRecord = new SinkRecord("test-topic", 0, null, "key1", schema, msg, 0);
 
-        sender.send(List.of(record));
+        sender.send(List.of(sinkRecord));
 
         ArgumentCaptor<TrackMessage.Builder> argumentCaptor = ArgumentCaptor.forClass(TrackMessage.Builder.class);
         verify(mockAnalytics, times(1)).enqueue(argumentCaptor.capture());
@@ -78,9 +78,9 @@ final class RudderstackSenderTest {
         Schema schema = SchemaBuilder.struct().name("TestSchema").build();
 
         Date eventTimestamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse("2024-03-14T12:05:55Z");
-        SinkRecord record = new SinkRecord("test-topic", 0, null, null, schema, "hello world", 0, eventTimestamp.getTime(), TimestampType.CREATE_TIME);
+        SinkRecord sinkRecord = new SinkRecord("test-topic", 0, null, null, schema, "hello world", 0, eventTimestamp.getTime(), TimestampType.CREATE_TIME);
 
-        sender.send(List.of(record));
+        sender.send(List.of(sinkRecord));
 
         ArgumentCaptor<TrackMessage.Builder> argumentCaptor = ArgumentCaptor.forClass(TrackMessage.Builder.class);
         verify(mockAnalytics, times(1)).enqueue(argumentCaptor.capture());
