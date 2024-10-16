@@ -17,7 +17,10 @@ class UrlValidator implements ConfigDef.Validator {
             throw new ConfigException(name, value, "must be string");
         }
         try {
-            new URI((String) value);
+            URI uri = new URI((String) value);
+            if (uri.getScheme() == null || uri.getHost() == null) {
+                throw new ConfigException(name, value, "malformed URL");
+            }
         } catch (final URISyntaxException e) {
             throw new ConfigException(name, value, "malformed URL");
         }
