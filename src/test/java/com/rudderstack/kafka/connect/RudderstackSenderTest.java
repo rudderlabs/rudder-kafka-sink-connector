@@ -2,14 +2,12 @@ package com.rudderstack.kafka.connect;
 
 import com.rudderstack.kafka.connect.config.RudderSinkConfig;
 import com.rudderstack.sdk.java.analytics.RudderAnalytics;
-
 import com.rudderstack.sdk.java.analytics.messages.TrackMessage;
 import org.apache.kafka.common.record.TimestampType;
-import org.apache.kafka.connect.sink.SinkRecord;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.SchemaBuilder;
 import org.apache.kafka.connect.data.Struct;
-
+import org.apache.kafka.connect.sink.SinkRecord;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -17,10 +15,9 @@ import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 final class RudderstackSenderTest {
@@ -41,7 +38,7 @@ final class RudderstackSenderTest {
 
         verify(mockConfig, times(1)).dataPlaneUrl();
         verify(mockConfig, times(1)).writeKey();
-        
+
         // Verify that the fields are not null (i.e., they have been initialized)
         assertNotNull(analytics);
     }
@@ -91,16 +88,14 @@ final class RudderstackSenderTest {
         assertEquals("Josh", trackMessage1.properties().get("name"));
         assertEquals("josh@example.com", trackMessage1.properties().get("email"));
         assertTrue(trackMessage1.properties().containsKey("email"));
-        assertNotNull(trackMessage1.context());
-        assertEquals("test-topic", trackMessage1.context().get("topic"));
+        assertEquals("test-topic", Objects.requireNonNull(trackMessage1.context()).get("topic"));
 
         TrackMessage trackMessage2 = trackMessageBuilders.get(1).build();
         // Partition will be used as userId
         assertEquals("0", trackMessage2.userId());
         assertNotNull(trackMessage2.properties());
-        assertEquals("hello world", trackMessage2.properties().get("message"));
-        assertNotNull(trackMessage2.context());
-        assertEquals("test-topic", trackMessage2.context().get("topic"));
+        assertEquals("hello world", trackMessage2.properties().get("value"));
+        assertEquals("test-topic", Objects.requireNonNull(trackMessage2.context()).get("topic"));
         assertEquals(eventTimestamp, trackMessage2.timestamp());
     }
 }

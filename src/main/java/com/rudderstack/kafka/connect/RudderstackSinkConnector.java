@@ -1,12 +1,10 @@
 package com.rudderstack.kafka.connect;
 
+import com.rudderstack.kafka.connect.config.RudderSinkConfig;
+import com.rudderstack.kafka.connect.config.Version;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.connect.connector.Task;
 import org.apache.kafka.connect.sink.SinkConnector;
-
-import com.rudderstack.kafka.connect.config.RudderSinkConfig;
-import com.rudderstack.kafka.connect.config.Version;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,13 +17,13 @@ import java.util.Objects;
  * The RudderSinkConnector class is a Kafka Connect SinkConnector implementation
  * that sends data to Rudderstack.
  */
-public class RudderSinkConnector extends SinkConnector {
-    private static final Logger log = LoggerFactory.getLogger(RudderSinkConnector.class);
+public class RudderstackSinkConnector extends SinkConnector {
+    private static final Logger log = LoggerFactory.getLogger(RudderstackSinkConnector.class);
 
     private Map<String, String> configProps;
     private RudderSinkConfig config;
 
-    public RudderSinkConnector() {
+    public RudderstackSinkConnector() {
         // required by Kafka Connect
     }
 
@@ -39,7 +37,7 @@ public class RudderSinkConnector extends SinkConnector {
 
     @Override
     public Class<? extends Task> taskClass() {
-        return RudderSinkTask.class;
+        return RudderstackSinkTask.class;
     }
 
     @Override

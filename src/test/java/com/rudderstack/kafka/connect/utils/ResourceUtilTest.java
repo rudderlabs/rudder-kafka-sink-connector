@@ -15,7 +15,7 @@ final class ResourceUtilTest {
     }
 
     @Test
-     void shouldReturnNullWhenFileNameIsNull() throws IOException {
+    void shouldReturnNullWhenFileNameIsNull() throws IOException {
         var properties = ResourceUtil.getProperties(null);
         assertTrue(properties.isEmpty());
     }

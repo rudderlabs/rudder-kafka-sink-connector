@@ -7,13 +7,13 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public final class ResourceUtil {
-    private static final Logger log = LoggerFactory.getLogger(ResourceUtil.class);
-
     public static final String PROJECT_PROPERTIES_FILE_NAME = "project.properties";
+    private static final Logger log = LoggerFactory.getLogger(ResourceUtil.class);
 
     private ResourceUtil() {
     }
-    public static Properties getProperties( String fileName)  {
+
+    public static Properties getProperties(String fileName) {
         Properties appProps = new Properties();
         try (InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(fileName)) {
             if (is != null) {

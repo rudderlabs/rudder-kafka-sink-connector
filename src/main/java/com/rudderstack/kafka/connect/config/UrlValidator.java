@@ -1,10 +1,10 @@
 package com.rudderstack.kafka.connect.config;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.common.config.ConfigException;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 class UrlValidator implements ConfigDef.Validator {
 

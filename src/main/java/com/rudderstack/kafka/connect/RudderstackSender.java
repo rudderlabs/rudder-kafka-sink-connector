@@ -1,19 +1,17 @@
 package com.rudderstack.kafka.connect;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.LinkedHashMap;
-import java.util.Date;
-
-import org.apache.kafka.connect.sink.SinkRecord;
-import org.apache.kafka.connect.json.JsonConverter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.rudderstack.kafka.connect.config.RudderSinkConfig;
+import com.rudderstack.kafka.connect.utils.ConverterUtil;
 import com.rudderstack.sdk.java.analytics.RudderAnalytics;
 import com.rudderstack.sdk.java.analytics.messages.TrackMessage;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rudderstack.kafka.connect.config.RudderSinkConfig;
+import org.apache.kafka.connect.sink.SinkRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * This class is responsible for sending records to Rudderstack.
@@ -23,8 +21,6 @@ public class RudderstackSender {
     private static final Logger log = LoggerFactory.getLogger(RudderstackSender.class);
 
     private final RudderAnalytics analytics;
-    private final JsonConverter jsonConverter;
-    private final ObjectMapper mapper = new ObjectMapper();
 
     public RudderstackSender(final RudderSinkConfig config) {
         this.analytics = RudderAnalytics
@@ -32,30 +28,8 @@ public class RudderstackSender {
                 .setDataPlaneUrl(config.dataPlaneUrl())
                 .setGZIP(true)
                 .build();
-        this.jsonConverter = new JsonConverter();
-        jsonConverter.configure(Map.of("schemas.enable", false, "converter.type", "value"));
     }
 
-    /**
-     * Converts a SinkRecord to a Map representation.
-     *
-     * @param sinkRecord the SinkRecord to convert
-     * @return a Map representation of the SinkRecord
-     * @throws Exception if there is an error converting the record to a map
-     */
-    private Map<String, Object> convertRecordToMap(SinkRecord sinkRecord) {
-        try {
-            byte[] jsonBytes = jsonConverter.fromConnectData(sinkRecord.topic(),
-                    sinkRecord.valueSchema(),
-                    sinkRecord.value());
-            return mapper.readValue(jsonBytes, new TypeReference<Map<String, Object>>() {
-            });
-        } catch (Exception e) {
-            log.error("Error converting record to map", e);
-            return Map.of("message", sinkRecord.value());
-        }
-    }
-    
     /**
      * Computes the user ID for a given SinkRecord.
      *
@@ -78,7 +52,6 @@ public class RudderstackSender {
         return new Date(timestamp);
     }
 
-
     /**
      * Sends a collection of SinkRecords to Rudderstack.
      * This method sends the provided collection of SinkRecords to Rudderstack for
@@ -98,7 +71,7 @@ public class RudderstackSender {
             messageBuilder.timestamp(computeTimestamp(sinkRecord));
             messageBuilder.userId(computeUserID(sinkRecord));
             messageBuilder.context(context);
-            messageBuilder.properties(convertRecordToMap(sinkRecord));
+            messageBuilder.properties(ConverterUtil.convert(sinkRecord));
             this.analytics.enqueue(messageBuilder);
         }
     }
