@@ -1,41 +1,48 @@
 package com.rudderstack.kafka.connect.config;
 
 import org.apache.kafka.common.config.ConfigException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-final class UrlValidatorTest {
+class UrlValidatorTest {
 
-    private final UrlValidator validator = new UrlValidator();
+    private UrlValidator validator;
+
+    @BeforeEach
+    void setUp() {
+        validator = new UrlValidator();
+    }
 
     @ParameterizedTest
     @CsvSource({
-            "https://www.example.com, true",        // Valid URL
-            "null, false",                          // Null URL
-            "https://www.example.com/s=^, false",   // Bad URL
-            "https://, false",                      // Bad URL
-            "invalid-url, false",                   // NOT URL
-            "1, false"                              // Invalid type
+            "https://www.example.com, true",
+            "http://localhost:8080, true",
+            "ftp://example.com, true",
+            "invalid-url, false",
+            "http://, false",
+            "http:///, false",
     })
     void testUrlValidation(String url, boolean isValid) {
-        if ("null".equals(url)) {
-            url = null;
-        }
-        final String finalUrl = url;
-
         if (isValid) {
-            assertDoesNotThrow(() -> validator.ensureValid("url", finalUrl));
+            assertDoesNotThrow(() -> validator.ensureValid("url", url));
         } else {
-            assertThrows(ConfigException.class, () -> validator.ensureValid("url", finalUrl));
+            assertThrows(ConfigException.class, () -> validator.ensureValid("url", url));
         }
     }
 
     @Test
-    void testUrlValidationForNonString() {
-        assertThrows(ConfigException.class, () -> validator.ensureValid("url", 1));
+    void shouldRejectNullUrl() {
+        assertThrows(ConfigException.class, () -> validator.ensureValid("url", null));
+    }
+
+    @Test
+    void shouldRejectNonStringUrl() {
+        assertThrows(ConfigException.class, () -> validator.ensureValid("url", 123));
+        assertThrows(ConfigException.class, () -> validator.ensureValid("url", new Object()));
     }
 }
