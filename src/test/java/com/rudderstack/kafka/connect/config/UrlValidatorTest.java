@@ -2,16 +2,25 @@ package com.rudderstack.kafka.connect.config;
 
 import org.apache.kafka.common.config.ConfigException;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.stream.Stream;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UrlValidatorTest {
 
     private UrlValidator validator;
+
+    private static Stream<Object> provideInvalidUrls() {
+        return Stream.of(
+                null,          // Test for null value
+                123,           // Test for non-string integer
+                new Object());   // Test for non-string object
+    }
 
     @BeforeEach
     void setUp() {
@@ -35,14 +44,10 @@ class UrlValidatorTest {
         }
     }
 
-    @Test
-    void shouldRejectNullUrl() {
-        assertThrows(ConfigException.class, () -> validator.ensureValid("url", null));
+    @ParameterizedTest
+    @MethodSource("provideInvalidUrls")
+    void shouldRejectInvalidUrls(Object value) {
+        assertThrows(ConfigException.class, () -> validator.ensureValid("url", value));
     }
 
-    @Test
-    void shouldRejectNonStringUrl() {
-        assertThrows(ConfigException.class, () -> validator.ensureValid("url", 123));
-        assertThrows(ConfigException.class, () -> validator.ensureValid("url", new Object()));
-    }
 }
