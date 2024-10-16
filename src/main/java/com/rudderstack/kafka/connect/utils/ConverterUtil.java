@@ -46,22 +46,22 @@ public final class ConverterUtil {
     /**
      * Converts a Struct to a Map<String, Object>
      *
-     * @param record the GenericRecord to be converted
+     * @param genericRecord the GenericRecord to be converted
      * @return a Map with field names as keys and field values as values
      */
-    public static Map<String, Object> convertGenericRecordToMap(GenericRecord record) {
+    public static Map<String, Object> convertGenericRecordToMap(GenericRecord genericRecord) {
         Map<String, Object> resultMap = new HashMap<>();
 
-        if (record == null) {
+        if (genericRecord == null) {
             return resultMap; // Return an empty map if struct is null
         }
 
-        org.apache.avro.Schema schema = record.getSchema(); // Get the schema for the Struct
+        org.apache.avro.Schema schema = genericRecord.getSchema(); // Get the schema for the Struct
 
         // Iterate over all the fields in the Struct
         for (org.apache.avro.Schema.Field field : schema.getFields()) {
             String fieldName = field.name(); // Get field name
-            Object fieldValue = record.get(fieldName); // Get field value
+            Object fieldValue = genericRecord.get(fieldName); // Get field value
             resultMap.put(fieldName, fieldValue); // Add to the result map
         }
 
@@ -86,28 +86,25 @@ public final class ConverterUtil {
     /**
      * Converts any sink record to a map
      *
-     * @param record SinkRecord
+     * @param sinkRecord SinkRecord
      * @return Map
      */
-    public static Map<String, Object> convert(SinkRecord record) {
-        Object value = record.value();
-        Object key = record.key();
+    public static Map<String, Object> convert(SinkRecord sinkRecord) {
+        Object value = sinkRecord.value();
+        Object key = sinkRecord.key();
 
-        if (value instanceof Struct struct) {
-            return convertStructToMap(struct);
-        } else if (value instanceof GenericRecord genericRecord) {
-            return convertGenericRecordToMap(genericRecord);
-        } else if (value instanceof Map<?, ?> map) {
-            // Handle JSON type which will likely be a Map
-            return convertMap(map);
-        } else {
-            log.warn("The type of the record value: {} is not supported, so it will be retained in its original form.", value.getClass().getName());
-            // Handle primitive types (e.g., String, Integer)
-            if (key != null) {
-                return Collections.singletonMap(key.toString(), value);
-            } else {
-                return Collections.singletonMap("value", value);
+        return switch (value) {
+            case Struct struct -> convertStructToMap(struct);
+            case GenericRecord genericRecord -> convertGenericRecordToMap(genericRecord);
+            case Map<?, ?> map -> convertMap(map);
+            default -> {
+                log.warn("The type of the record value: {} is not supported, so it will be retained in its original form.", value.getClass().getName());
+                if (key != null) {
+                    yield Collections.singletonMap(key.toString(), value);
+                } else {
+                    yield Collections.singletonMap("value", value);
+                }
             }
-        }
+        };
     }
 }

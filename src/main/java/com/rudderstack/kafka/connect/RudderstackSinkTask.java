@@ -38,7 +38,9 @@ public class RudderstackSinkTask extends SinkTask {
 
     @Override
     public void put(Collection<SinkRecord> records) {
-        log.debug("Received {} records", records.size());
+        if(log.isDebugEnabled()){
+            log.debug("Received {} records", records.size());
+        }
         sender.send(records);
     }
 

@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
-public class RudderstackSinkTaskTest {
+final class RudderstackSinkTaskTest {
 
     @Test
-    public void shouldStartTask() {
+    void shouldStartTask() {
         Map<String, String> props = new HashMap<>();
         props.put("rudder.data.plane.url", "https://example.com");
         props.put("rudder.write.key", "write_key");
@@ -32,7 +32,7 @@ public class RudderstackSinkTaskTest {
     }
 
     @Test
-    public void shouldPutRecords() throws Exception {
+    void shouldPutRecords() throws Exception {
         RudderstackSinkTask task = new RudderstackSinkTask();
         // Use reflection to access private fields
         Field senderField = RudderstackSinkTask.class.getDeclaredField("sender");

@@ -55,10 +55,10 @@ public class AvroMessageProducer {
         orderDetail.put("content", "This order includes a laptop and accessories.");
 
         // Create a ProducerRecord
-        ProducerRecord<String, GenericRecord> record = new ProducerRecord<>("rudder-avro-events", orderDetail);
+        ProducerRecord<String, GenericRecord> producerRecord = new ProducerRecord<>("rudder-avro-events", orderDetail);
 
         // Send the record
-        producer.send(record, (RecordMetadata metadata, Exception exception) -> {
+        producer.send(producerRecord, (RecordMetadata metadata, Exception exception) -> {
             if (exception != null) {
                 exception.printStackTrace();
             } else {

@@ -39,10 +39,10 @@ public class JsonMessageProducer {
             String jsonString = objectMapper.writeValueAsString(map);
 
             // Create a ProducerRecord
-            ProducerRecord<String, String> record = new ProducerRecord<>(topicName, jsonString);
+            ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topicName, jsonString);
 
             // Send the record
-            producer.send(record, (RecordMetadata metadata, Exception exception) -> {
+            producer.send(producerRecord, (RecordMetadata metadata, Exception exception) -> {
                 if (exception != null) {
                     exception.printStackTrace();
                 } else {

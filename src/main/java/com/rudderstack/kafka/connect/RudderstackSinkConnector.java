@@ -32,7 +32,9 @@ public class RudderstackSinkConnector extends SinkConnector {
         Objects.requireNonNull(props);
         this.configProps = Collections.unmodifiableMap(props);
         this.config = new RudderSinkConfig(props);
-        log.info("Starting connector {}", config.connectorName());
+        if (log.isInfoEnabled()) {
+            log.info("Starting connector {}", config.connectorName());
+        }
     }
 
     @Override
@@ -48,7 +50,9 @@ public class RudderstackSinkConnector extends SinkConnector {
     @Override
     public void stop() {
         // Nothing to do.
-        log.info("Stopping connector {}", config.connectorName());
+        if (log.isInfoEnabled()) {
+            log.info("Stopping connector {}", config.connectorName());
+        }
     }
 
     @Override
