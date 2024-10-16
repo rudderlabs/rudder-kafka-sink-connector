@@ -16,10 +16,11 @@ final class RangeValidatorTest {
             "null, true", // Null value
             "10, true",  // Max value
             "1, true",   // Min value
+            "hello, false", // Invalid type
     })
     void testRangeValidator(String input, boolean shouldPass) {
         RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
-        Integer value = "null".equals(input) ? null : parseInteger(input);
+        Object value = "null".equals(input) ? null : parseInteger(input);
 
         if (shouldPass) {
             assertDoesNotThrow(() -> validator.ensureValid("test", value));
@@ -28,11 +29,11 @@ final class RangeValidatorTest {
         }
     }
 
-    private Integer parseInteger(String input) {
+    private Object parseInteger(String input) {
         try {
             return Integer.valueOf(input);
         } catch (NumberFormatException e) {
-            return null; // Handle non-integer inputs
+            return input; // Handle non-integer inputs
         }
     }
 }

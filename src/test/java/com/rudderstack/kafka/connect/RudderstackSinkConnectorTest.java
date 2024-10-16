@@ -26,7 +26,7 @@ final class RudderstackSinkConnectorTest {
         assertNotNull(configDef);
         assertTrue(configDef.configKeys().containsKey("name"));
         List<Map<String, String>> configMaps = connector.taskConfigs(1);
-        assertEquals(props, configMaps.get(0));
+        assertEquals(props, configMaps.getFirst());
         assertDoesNotThrow(connector::stop);
     }
 
