@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.0](https://github.com/rudderlabs/rudder-kafka-sink-connector/compare/v0.2.0...v0.3.0) (2024-10-17)
+
+
+### Features
+
+* add support for avro message formats ([2ca609c](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/2ca609c948f3404f764e206796af957ad4de19e5))
+
+
+### Bug Fixes
+
+* sonar issues ([4bede29](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/4bede291d93a5742f050ce6a5f3030b07e094d22))
+* sonar issues ([a7b3e07](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/a7b3e0792a9aae46260624f8bc124689cb59422f))
+* sonar issues ([3fcd8b5](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/3fcd8b5e3092a1d493ec790c3af514d6a3119c9f))
+* sonar issues ([f1d3a46](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/f1d3a46817ab5f158d4e9f698f42060d828fd119))
+* sonar issues ([a6bf5d7](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/a6bf5d7c3afc5c214d02114606bcc0818138329b))
+* sonar issues ([a9ebe7e](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/a9ebe7ed6af1e19dcec805a24da3f167941b0aae))
+
 ## [0.2.0](https://github.com/rudderlabs/rudder-kafka-sink-connector/compare/v0.1.0...v0.2.0) (2024-03-18)
 
 
