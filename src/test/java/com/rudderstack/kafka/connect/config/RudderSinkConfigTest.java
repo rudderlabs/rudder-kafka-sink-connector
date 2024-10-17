@@ -1,13 +1,13 @@
 package com.rudderstack.kafka.connect.config;
 
-import java.util.Map;
+import org.apache.kafka.common.config.ConfigException;
+import org.junit.jupiter.api.Test;
+
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.apache.kafka.common.config.ConfigException;
-import org.junit.jupiter.api.Test;
 
 final class RudderSinkConfigTest {
 

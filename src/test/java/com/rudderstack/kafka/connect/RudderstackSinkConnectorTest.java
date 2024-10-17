@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class RudderSinkConnectorTest {
+final class RudderstackSinkConnectorTest {
 
     // starts successfully with valid configuration
     @Test
@@ -20,24 +20,24 @@ public class RudderSinkConnectorTest {
         props.put("name", "connector_name");
         props.put("kafka.retry.backoff.ms", "1000");
 
-        RudderSinkConnector connector = new RudderSinkConnector();
+        RudderstackSinkConnector connector = new RudderstackSinkConnector();
         connector.start(props);
-        ConfigDef configDef =  connector.config();
+        ConfigDef configDef = connector.config();
         assertNotNull(configDef);
         assertTrue(configDef.configKeys().containsKey("name"));
         List<Map<String, String>> configMaps = connector.taskConfigs(1);
-        assertEquals(props, configMaps.get(0));
+        assertEquals(props, configMaps.getFirst());
         assertDoesNotThrow(connector::stop);
     }
 
     @Test
     void shouldReturnVersion() {
-        assertNotNull(new RudderSinkConnector().version());
+        assertNotNull(new RudderstackSinkConnector().version());
     }
 
     @Test
     void shouldReturnTaskClass() {
-        RudderSinkConnector connector = new RudderSinkConnector();
-        assertEquals(RudderSinkTask.class, connector.taskClass());
+        RudderstackSinkConnector connector = new RudderstackSinkConnector();
+        assertEquals(RudderstackSinkTask.class, connector.taskClass());
     }
 }

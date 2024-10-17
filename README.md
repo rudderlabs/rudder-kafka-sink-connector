@@ -55,14 +55,18 @@ Before you start, ensure you have the following:
 Copy the **rudderstack-kafka-connector-x.x.x.jar** to your Kafka libs directory.
 
 ### Configuration
-Create a rudderstack-kafka-connector-config.properties file with the following details:
+#### JSON Messages
+Create a rudderstack-kafka-connector-config.properties file with the following details for JSON messages:
 ```
-name=rudderstack-sink
-connector.class=com.rudderstack.kafka.connect.RudderSinkConnector
+# You should change the following configration according to your setup
+name=rudderstack-json-sink 
 tasks.max=1
-topics=blogpost
+topics=<your-topic>
 rudder.data.plane.url=<YOUR_DATA_PLANE_URL>
 rudder.write.key=<YOUR_WRITE_KEY>
+
+# DONT CHANGE THE FOLLOWING
+connector.class=com.rudderstack.kafka.connect.RudderstackSinkConnector
 
 # Converter settings for key and value
 key.converter=org.apache.kafka.connect.json.JsonConverter
@@ -72,12 +76,34 @@ value.converter=org.apache.kafka.connect.json.JsonConverter
 key.converter.schemas.enable=false
 value.converter.schemas.enable=false
 ```
-Replace <YOUR_DATA_PLANE_URL> with your Rudderstack dataplane URL and <YOUR_WRITE_KEY> with your Rudderstack write key.
+#### Avro Messages
+Create a rudderstack-kafka-connector-config.properties file with the following details for AVRO messages:
+```
+# You should change the following configration according to your setup
+name=rudderstack-avro-sink 
+tasks.max=1
+topics=<your-topic>
+rudder.data.plane.url=<YOUR_DATA_PLANE_URL>
+rudder.write.key=<YOUR_WRITE_KEY>
+key.converter.schema.registry.url=http://localhost:8081
+value.converter.schema.registry.url=http://localhost:8081
+
+# DONT CHANGE THE FOLLOWING
+
+connector.class=com.rudderstack.kafka.connect.RudderstackSinkConnector
+
+# Converter settings for key and value
+key.converter=io.confluent.connect.avro.AvroConverter
+value.converter=io.confluent.connect.avro.AvroConverter
+key.converter.schemas.enable=true
+value.converter.schemas.enable=true
+```
+Replace <YOUR_DATA_PLANE_URL> with your Rudderstack data plane URL and <YOUR_WRITE_KEY> with your Rudderstack write key.
 
 ### Usage
-To start the connector, use the following command:
-
-`./bin/connect-standalone.sh config/connect-standalone.properties rudderstack-kafka-connector-config.properties`
+To start the connector, use any of the following commands:
+* `./bin/connect-standalone.sh config/connect-standalone.properties rudderstack-kafka-avro-connector-config.properties`
+* If you have multiple message types: `./bin/connect-standalone.sh config/connect-standalone.properties rudderstack-kafka-avro-connector-config.properties rudderstack-kafka-json-connector-config.properties`
 
 ## Contribute
 ### How does it work

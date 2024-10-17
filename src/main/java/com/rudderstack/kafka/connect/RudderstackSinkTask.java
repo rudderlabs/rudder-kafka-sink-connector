@@ -1,24 +1,23 @@
 package com.rudderstack.kafka.connect;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Objects;
-
+import com.rudderstack.kafka.connect.config.RudderSinkConfig;
+import com.rudderstack.kafka.connect.config.Version;
 import org.apache.kafka.connect.sink.SinkRecord;
 import org.apache.kafka.connect.sink.SinkTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rudderstack.kafka.connect.config.RudderSinkConfig;
-import com.rudderstack.kafka.connect.config.Version;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * The RudderSinkTask class is responsible for handling the sink task for the
  * RudderStack Kafka Connect Sink connector.
  * It receives records from Kafka and sends them to RudderStack.
  */
-public class RudderSinkTask extends SinkTask {
-    private static final Logger log = LoggerFactory.getLogger(RudderSinkTask.class);
+public class RudderstackSinkTask extends SinkTask {
+    private static final Logger log = LoggerFactory.getLogger(RudderstackSinkTask.class);
 
     private RudderstackSender sender;
 

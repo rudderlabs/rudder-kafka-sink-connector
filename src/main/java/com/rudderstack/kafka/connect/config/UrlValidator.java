@@ -1,10 +1,10 @@
 package com.rudderstack.kafka.connect.config;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.common.config.ConfigException;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 class UrlValidator implements ConfigDef.Validator {
 
@@ -17,8 +17,11 @@ class UrlValidator implements ConfigDef.Validator {
             throw new ConfigException(name, value, "must be string");
         }
         try {
-            new URL((String) value);
-        } catch (final MalformedURLException e) {
+            URI uri = new URI((String) value);
+            if (uri.getScheme() == null || uri.getHost() == null) {
+                throw new ConfigException(name, value, "malformed URL");
+            }
+        } catch (final URISyntaxException e) {
             throw new ConfigException(name, value, "malformed URL");
         }
     }

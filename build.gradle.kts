@@ -9,6 +9,7 @@ group = "com.rudderstack"
 
 repositories {
     mavenCentral()
+    maven("https://packages.confluent.io/maven/")
 }
 // x-release-please-start-version
 val version="0.2.0"
@@ -16,12 +17,14 @@ val version="0.2.0"
 
 project.version = version
 
-val kafkaVersion = "3.7.0"
-val slf4jApiVersion = "2.0.12"
+val kafkaVersion = "3.8.0"
+val slf4jApiVersion = "2.0.16"
 val junitVersion = "5.10.2"
-val jacksonVersion = "2.16.2"
-val rudderAnalytics = "3.0.0"
-val mockitoCore = "5.11.0"
+val jacksonVersion = "2.18.0"
+val rudderAnalytics = "3.1.2"
+val mockitoCore = "5.14.1"
+val avroVersion = "1.12.0"
+val confluentVersion = "7.7.1"
 
 dependencies {
     implementation("org.apache.kafka:connect-api:$kafkaVersion")
@@ -29,9 +32,12 @@ dependencies {
     implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
 
     implementation("org.slf4j:slf4j-api:$slf4jApiVersion")
+    implementation("org.slf4j:slf4j-log4j12:$slf4jApiVersion")
     implementation("com.rudderstack.sdk.java.analytics:analytics:$rudderAnalytics")
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    implementation("org.apache.avro:avro:$avroVersion")
+    implementation("io.confluent:kafka-connect-avro-converter:$confluentVersion")
 
     testImplementation(platform("org.junit:junit-bom:$junitVersion"))
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
@@ -39,7 +45,7 @@ dependencies {
 }
 
 jacoco {
-    toolVersion = "0.8.11"
+    toolVersion = "0.8.12"
     reportsDirectory = layout.buildDirectory.dir("coverage")
 }
 sonarqube {
@@ -77,7 +83,7 @@ tasks.jacocoTestReport {
 tasks {
     shadowJar {
         archiveBaseName.set("rudderstack-kafka-connector")
-        archiveVersion.set("$version")
+        archiveVersion.set(version)
         archiveClassifier.set("")
     }
 }

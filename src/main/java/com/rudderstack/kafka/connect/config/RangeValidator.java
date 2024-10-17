@@ -1,10 +1,9 @@
 package com.rudderstack.kafka.connect.config;
 
-import java.util.Objects;
-import java.util.List;
-
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.common.config.ConfigException;
+
+import java.util.Objects;
 
 public class RangeValidator<T extends Number> implements ConfigDef.Validator {
     private final T min;
@@ -23,7 +22,7 @@ public class RangeValidator<T extends Number> implements ConfigDef.Validator {
         if (!(value instanceof Number)) {
             throw new ConfigException(name, value, "Value must be a number");
         }
-        final var longValue = ((Number)value).longValue();
+        final var longValue = ((Number) value).longValue();
         if (longValue < this.min.longValue()) {
             throw new ConfigException(name, value, "Value must be at least " + this.min);
         } else if (longValue > this.max.longValue()) {

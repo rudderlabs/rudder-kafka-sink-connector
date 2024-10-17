@@ -1,46 +1,39 @@
 package com.rudderstack.kafka.connect.config;
 
+import org.apache.kafka.common.config.ConfigException;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.apache.kafka.common.config.ConfigException;
-import org.junit.jupiter.api.Test;
-
 final class RangeValidatorTest {
 
-    @Test
-    void shouldAcceptNumberWithinRange() {
+    @ParameterizedTest
+    @CsvSource({
+            "5, true",   // Within range
+            "15, false", // Out of range
+            "null, true", // Null value
+            "10, true",  // Max value
+            "1, true",   // Min value
+            "hello, false", // Invalid type
+    })
+    void testRangeValidator(String input, boolean shouldPass) {
         RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
-        assertDoesNotThrow(() -> validator.ensureValid("test", 5));
+        Object value = "null".equals(input) ? null : parseInteger(input);
+
+        if (shouldPass) {
+            assertDoesNotThrow(() -> validator.ensureValid("test", value));
+        } else {
+            assertThrows(ConfigException.class, () -> validator.ensureValid("test", value));
+        }
     }
 
-    @Test
-    void shouldRejectNumberNotInRange() {
-        RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
-        assertThrows(ConfigException.class, () -> validator.ensureValid("test", 15));
-    }
-
-    @Test
-    void shouldAcceptNullValue() {
-        RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
-        assertDoesNotThrow(() -> validator.ensureValid("test", null));
-    }
-
-    @Test
-    void shouldAcceptMaxValue() {
-        RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
-        assertDoesNotThrow(() -> validator.ensureValid("test", 10));
-    }
-
-    @Test
-    void shouldAcceptMinValue() {
-        RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
-        assertDoesNotThrow(() -> validator.ensureValid("test", 1));
-    }
-
-    @Test
-    void shouldNotAcceptInvalidValues() {
-        RangeValidator<Integer> validator = new RangeValidator<>(1, 10);
-        assertThrows(ConfigException.class, () -> validator.ensureValid("test", "hello"));
+    private Object parseInteger(String input) {
+        try {
+            return Integer.valueOf(input);
+        } catch (NumberFormatException e) {
+            return input; // Handle non-integer inputs
+        }
     }
 }
