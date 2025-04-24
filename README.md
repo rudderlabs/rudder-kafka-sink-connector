@@ -121,4 +121,3 @@ We would love to see you contribute to RudderStack. Get more information on how 
 
 The RudderStack \*\*software name\*\* is released under the [**MIT License**](https://opensource.org/licenses/MIT).
 
-
