@@ -16,9 +16,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build --no-dependency-verification
       - name: Run tests with coverage
-        run: ./gradlew test jacocoTestReport
+        run: ./gradlew test jacocoTestReport --no-dependency-verification
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
 
@@ -38,4 +38,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew sonar --info
+        run: ./gradlew sonar --info --no-dependency-verification

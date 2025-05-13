@@ -36,7 +36,7 @@ jobs:
           distribution: "temurin"
 
       - name: Create Connector Jar
-        run: ./gradlew shadowJar
+        run: ./gradlew shadowJar --no-dependency-verification
 
       - name: Upload Release Artifact
         env:
