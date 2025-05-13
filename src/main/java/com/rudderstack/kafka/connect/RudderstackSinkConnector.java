@@ -49,6 +49,7 @@ public class RudderstackSinkConnector extends SinkConnector {
     public void stop() {
         // Nothing to do.
         log.info("Stopping connector {}", config.connectorName());
+        
     }
 
     @Override
