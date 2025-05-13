@@ -17,6 +17,15 @@ val version="0.3.0"
 
 project.version = version
 
+// Set Java compatibility to JDK 21
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
 val kafkaVersion = "3.8.0"
 val slf4jApiVersion = "2.0.16"
 val junitVersion = "5.10.2"
