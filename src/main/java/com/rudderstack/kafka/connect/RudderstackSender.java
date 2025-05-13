@@ -1,6 +1,7 @@
 package com.rudderstack.kafka.connect;
 
 import com.rudderstack.kafka.connect.config.RudderSinkConfig;
+import com.rudderstack.kafka.connect.config.Version;
 import com.rudderstack.kafka.connect.utils.ConverterUtil;
 import com.rudderstack.sdk.java.analytics.RudderAnalytics;
 import com.rudderstack.sdk.java.analytics.messages.TrackMessage;
@@ -25,6 +26,7 @@ public class RudderstackSender {
     public RudderstackSender(final RudderSinkConfig config) {
         this.analytics = RudderAnalytics
                 .builder(config.writeKey())
+                .userAgent(Version.getProjectName() + "/" + Version.getVersion())
                 .setDataPlaneUrl(config.dataPlaneUrl())
                 .setGZIP(true)
                 .build();

@@ -25,6 +25,7 @@ val rudderAnalytics = "3.1.2"
 val mockitoCore = "5.14.1"
 val avroVersion = "1.12.0"
 val confluentVersion = "7.7.1"
+val okhttpVersion = "4.12.0"
 
 dependencies {
     implementation("org.apache.kafka:connect-api:$kafkaVersion")
@@ -38,10 +39,12 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("org.apache.avro:avro:$avroVersion")
     implementation("io.confluent:kafka-connect-avro-converter:$confluentVersion")
+    implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
 
     testImplementation(platform("org.junit:junit-bom:$junitVersion"))
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
     testImplementation("org.mockito:mockito-core:$mockitoCore")
+    testImplementation("com.squareup.okhttp3:mockwebserver:$okhttpVersion")
 }
 
 jacoco {

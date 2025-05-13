@@ -9,4 +9,9 @@ final class VersionTest {
     void shouldGetVersionFromVersionFile() {
         assertNotNull(Version.getVersion());
     }
+
+    @Test
+    void shouldGetProjectNameFromPropertiesFile() {
+        assertNotNull(Version.getProjectName());
+    }
 }
