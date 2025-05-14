@@ -6,6 +6,12 @@ on:
       - "main"
       - "release/*"
 
+# Define explicit permissions following the principle of least privilege
+permissions:
+  contents: write  # Needed for creating releases and uploading artifacts
+  pull-requests: write  # Needed for release-please to create PRs
+  issues: read  # Basic read access to issues
+
 jobs:
   release:
     runs-on: ubuntu-latest

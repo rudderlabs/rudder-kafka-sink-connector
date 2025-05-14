@@ -2,6 +2,12 @@ name: PR Tests and Coverage
 
 on: pull_request
 
+# Define explicit permissions following the principle of least privilege
+permissions:
+  contents: read       # Needed to checkout code
+  pull-requests: read  # Needed to read PR information
+  security-events: write # Needed for SonarCloud analysis
+
 jobs:
   build:
     runs-on: ubuntu-latest
