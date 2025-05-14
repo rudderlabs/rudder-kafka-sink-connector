@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/rudderlabs/rudder-kafka-sink-connector/compare/v0.4.0...v0.4.1) (2025-05-14)
+
+
+### Bug Fixes
+
+* add explicit permissions to GitHub workflows ([45d14cb](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/45d14cbda2685a40c1ab765d5c0f1c4f7f79421f))
+
 ## [0.4.0](https://github.com/rudderlabs/rudder-kafka-sink-connector/compare/v0.3.0...v0.4.0) (2025-05-14)
 
 
