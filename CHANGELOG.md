@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/rudderlabs/rudder-kafka-sink-connector/compare/v0.3.0...v0.4.0) (2025-05-14)
+
+
+### Features
+
+* **kafka-sink:** add user agent metadata to identify events from Kafka sink connector ([5c67587](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/5c67587daa279d230e6930e326dc0fb6dea1f773))
+
+
+### Bug Fixes
+
+* improve resource loading to handle different class loaders ([5eb408f](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/5eb408f95d858d18523ea6f30bf06516ece3bd90))
+
 ## [0.3.0](https://github.com/rudderlabs/rudder-kafka-sink-connector/compare/v0.2.0...v0.3.0) (2024-10-17)
 
 
