@@ -1,7 +1,7 @@
-<a href="https://codecov.io/gh/rudderlabs/rudder-kafka-sink-connector" > 
- <img src="https://codecov.io/gh/rudderlabs/rudder-kafka-sink-connector/graph/badge.svg?token=eThyQCVghX"/> 
+<a href="https://codecov.io/gh/rudderlabs/rudder-kafka-sink-connector" >
+ <img src="https://codecov.io/gh/rudderlabs/rudder-kafka-sink-connector/graph/badge.svg?token=eThyQCVghX"/>
 </a>
- 
+
 <p align="center">
   <a href="https://rudderstack.com/">
     <img src="https://user-images.githubusercontent.com/59817155/121357083-1c571300-c94f-11eb-8cc7-ce6df13855c9.png">
@@ -32,18 +32,18 @@ Before you start, ensure you have the following:
 
 * A running Kafka cluster
 * Access to Rudderstack
-* Java 8 or higher
+* Java 21 or higher
 
 ## Features
 1. Seamless Integration: The connector integrates smoothly with your existing Kafka cluster, minimizing setup time and allowing you to start leveraging your data faster.
 1. Real-Time Insights: By enabling real-time data streaming from Kafka to Rudderstack, the connector ensures that your business always has the most up-to-date information, enabling you to make data-driven decisions quickly.
 
 ## Getting started
-### Installation 
+### Installation
 #### From Source Code
-* Clone the repository: git clone https://github.com/rudderlabs/rudder-kafka-sink-connector.git
-* Navigate to the project directory: cd rudder-kafka-sink-connector
-* Build the project: gradle shadowJar
+* Clone the repository: `git clone https://github.com/rudderlabs/rudder-kafka-sink-connector.git`
+* Navigate to the project directory: `cd rudder-kafka-sink-connector`
+* Build the project: `./gradlew shadowJar`
 * The resulting JAR file in the build/libs directory is the Kafka sink connector you can use.
 
 #### From Released Assets
@@ -59,7 +59,7 @@ Copy the **rudderstack-kafka-connector-x.x.x.jar** to your Kafka libs directory.
 Create a rudderstack-kafka-connector-config.properties file with the following details for JSON messages:
 ```
 # You should change the following configration according to your setup
-name=rudderstack-json-sink 
+name=rudderstack-json-sink
 tasks.max=1
 topics=<your-topic>
 rudder.data.plane.url=<YOUR_DATA_PLANE_URL>
@@ -80,7 +80,7 @@ value.converter.schemas.enable=false
 Create a rudderstack-kafka-connector-config.properties file with the following details for AVRO messages:
 ```
 # You should change the following configration according to your setup
-name=rudderstack-avro-sink 
+name=rudderstack-avro-sink
 tasks.max=1
 topics=<your-topic>
 rudder.data.plane.url=<YOUR_DATA_PLANE_URL>
@@ -119,4 +119,4 @@ We would love to see you contribute to RudderStack. Get more information on how 
 
 ## License
 
-The RudderStack \*\*software name\*\* is released under the [**MIT License**](https://opensource.org/licenses/MIT).
+The RudderStack Kafka Sink Connector is released under the [**MIT License**](https://opensource.org/licenses/MIT).
