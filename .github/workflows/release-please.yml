@@ -19,6 +19,11 @@ jobs:
       tag_name: ${{ steps.release.outputs.tag_name }}
       release_created: ${{ steps.release.outputs.release_created }}
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - uses: google-github-actions/release-please-action@v4
         id: release
         with:
@@ -30,6 +35,11 @@ jobs:
     if: ${{ needs.release.outputs.release_created }}
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - name: Checkout
         uses: actions/checkout@v4
         # these if statements ensure that a publication only occurs when
