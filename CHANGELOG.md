@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/rudderlabs/rudder-kafka-sink-connector/compare/v0.4.1...v0.4.2) (2026-04-24)
+
+
+### Bug Fixes
+
+* **vuln:** pin and bump action refs (SEC-171) ([#27](https://github.com/rudderlabs/rudder-kafka-sink-connector/issues/27)) ([84b3022](https://github.com/rudderlabs/rudder-kafka-sink-connector/commit/84b3022e715de88388c0295621bf8b3a173f7997))
+
 ## [0.4.1](https://github.com/rudderlabs/rudder-kafka-sink-connector/compare/v0.4.0...v0.4.1) (2025-05-14)
 
 
