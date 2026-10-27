@@ -12,7 +12,7 @@ repositories {
     maven("https://packages.confluent.io/maven/")
 }
 // x-release-please-start-version
-val version="0.4.1"
+val version="0.4.2"
 // x-release-please-end
 
 project.version = version
